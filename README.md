@@ -13,3 +13,22 @@ docker build -t bookstore web
 ```
 docker run -d -p 5000:5000 bookstore
 ```
+Funkcijos:
+
+**GET**
+
+Gauti visas knygas ```/books```
+
+Gauti knygą pagal id ```/books/{id}```
+
+**POST**
+
+Patalpinti knygą ```/books?id=...&name=...&author=...&genre=...```
+
+**PUT**
+
+Redaguoti knygą ```/books?oid=SENAS_ID&id=...&name=...&author=...&genre=...```
+
+**DELETE**
+
+Ištrinti knygą ```/books?id=...&name=...&author=...&genre=...```
