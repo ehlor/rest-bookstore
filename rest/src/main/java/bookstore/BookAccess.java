@@ -71,7 +71,7 @@ public class BookAccess{
     public int addBook(Book nBook){
         List<Book> bookList = getAllBooks();
         for(Book book : bookList){
-            if(book.equals(nBook)) return 0;
+            if(book.equals(nBook) || book.getId() == nBook.getId()) return 0;
         }
         bookList.add(nBook);
         saveBookList(bookList);
