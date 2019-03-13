@@ -16,8 +16,8 @@ public class BookController{
     BookAccess bookAccess = new BookAccess();
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public ResponseEntity<Book> getBooks(){
-        return new ResponseEntity<Book>(bookAccess.getAllBooks(), HttpStatus.OK);
+    public ResponseEntity<List<Book>> getBooks(){
+        return new ResponseEntity<List<Book>>(bookAccess.getAllBooks(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
@@ -34,7 +34,7 @@ public class BookController{
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Response> updateBook(@PathVariable(value="oid") int oid,
-                                           @RequestBody Book book){
+                                               @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
