@@ -1,11 +1,13 @@
 package bookstore;
 
 import java.util.List;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,42 +16,34 @@ public class BookController{
     BookAccess bookAccess = new BookAccess();
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public List<Book> getBooks(){
-        return bookAccess.getAllBooks();
+    public ResponseEntity<Book> getBooks(){
+        return new ResponseEntity<Book>(bookAccess.getAllBooks(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
-    public Book getBook(@PathVariable(value="id") int id){
-        return bookAccess.getBook(id);
+    public ResponseEntity<Book> getBook(@PathVariable(value="id") int id){
+        return new ResponseEntity<Book>(bookAccess.getBook(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public Response addBook(@RequestParam(value="id") int id,
-                            @RequestParam(value="author") String author,
-                            @RequestParam(value="name") String name,
-                            @RequestParam(value="genre") String genre){
-        Book book = new Book(id, author, name, genre);
+    public ResponseEntity<Book> addBook(@RequestBody Book book){
         int response = bookAccess.addBook(book);
-        if(response == 1) return new Response("success", "Book added");
-        return new Response("failure", "Book already exists");
+        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book added"), HttpStatus.OK);
+        return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/books", method = RequestMethod.PUT)
-    public Response updateBook(@RequestParam(value="oid") int oid,
-                               @RequestParam(value="id") int id,
-                               @RequestParam(value="author") String author,
-                               @RequestParam(value="name") String name,
-                               @RequestParam(value="genre") String genre){
-        Book book = new Book(id, author, name, genre);
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Book> updateBook(@PathVariable(value="oid") int oid,
+                                           @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
-        if(response == 1) return new Response("success", "Book updated");
-        return new Response("failure", "Couldn't find book");
+        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
+        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
-    public Response deleteBook(@PathVariable(value="id") int id){
+    public ResponseEntity<Book> deleteBook(@PathVariable(value="id") int id){
         int response = bookAccess.deleteBook(id);
-        if(response == 1) return new Response("success", "Book deleted");
-        return new Response("failure", "Couldn't find book");
+        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book deleted"), HttpStatus.OK);
+        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
     }
 }
