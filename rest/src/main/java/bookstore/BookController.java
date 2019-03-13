@@ -26,14 +26,14 @@ public class BookController{
     }
 
     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
+    public ResponseEntity<Response> addBook(@RequestBody Book book){
         int response = bookAccess.addBook(book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book added"), HttpStatus.OK);
         return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Book> updateBook(@PathVariable(value="oid") int oid,
+    public ResponseEntity<Response> updateBook(@PathVariable(value="oid") int oid,
                                            @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class BookController{
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Book> deleteBook(@PathVariable(value="id") int id){
+    public ResponseEntity<Response> deleteBook(@PathVariable(value="id") int id){
         int response = bookAccess.deleteBook(id);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book deleted"), HttpStatus.OK);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
