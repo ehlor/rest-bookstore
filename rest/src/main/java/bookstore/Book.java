@@ -7,7 +7,7 @@ public class Book implements Serializable{
 
     private static final long serialVersionUID = 1L;
     @NotNull
-    private int id;
+    private Integer id;
     @NotNull
     private String author;
     @NotNull
@@ -17,14 +17,14 @@ public class Book implements Serializable{
 
     public Book(){}
 
-    public Book(int id, String author, String name, String genre){
+    public Book(Integer id, String author, String name, String genre){
         this.id = id;
         this.name = name;
         this.author = author;
         this.genre = genre;
     }
     
-    public int getId(){
+    public Integer getId(){
         return id;
     }
 
