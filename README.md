@@ -31,4 +31,4 @@ Redaguoti knygą ```/books?oid=SENAS_ID&id=...&name=...&author=...&genre=...```
 
 **DELETE**
 
-Ištrinti knygą ```/books?id=...&name=...&author=...&genre=...```
+Ištrinti knygą ```/books/{id}```
