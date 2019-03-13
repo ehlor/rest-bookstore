@@ -57,7 +57,7 @@ public class Book implements Serializable{
         }
         else{
             Book book = (Book) object;
-            if(id == book.getId() && author.equals(book.getAuthor()) && name.equals(book.getName()) && genre.equals(book.getGenre())) return true;
+            if(author.equals(book.getAuthor()) && name.equals(book.getName()) && genre.equals(book.getGenre())) return true;
         }
         return false;
     }
