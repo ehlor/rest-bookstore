@@ -33,7 +33,7 @@ public class BookController{
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Response> updateBook(@PathVariable(value="oid") int oid,
+    public ResponseEntity<Response> updateBook(@PathVariable(value="id") int oid,
                                                @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
