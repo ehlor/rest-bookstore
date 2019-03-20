@@ -26,7 +26,7 @@ public class BookController{
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
     public ResponseEntity<Book> getBook(@PathVariable(value="id") int id){
         Book book = bookAccess.getBook(id);
-        if(book == null) return new ResponseEntity<Book>(book, HttpStatus.BAD_REQUEST);
+        if(book == null) return new ResponseEntity<Book>(book, HttpStatus.NOT_FOUND);
         return new ResponseEntity<Book>(book, HttpStatus.OK);
     }
 
