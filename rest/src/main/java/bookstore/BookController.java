@@ -42,13 +42,21 @@ public class BookController{
                                                @Valid @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
-        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
+    }
+    
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Response> updateBook(@PathVariable(value="id") int oid,
+                                               @RequestBody Book book){
+        int response = bookAccess.updateBook(oid, book);
+        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
+        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Response> deleteBook(@PathVariable(value="id") int id){
         int response = bookAccess.deleteBook(id);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book deleted"), HttpStatus.OK);
-        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
 }
