@@ -95,7 +95,7 @@ public class BookAccess{
     
     public int patchBook(int oId, Book uBook){
         List<Book> bookList = getAllBooks();
-        Book nBook = new Book();
+        Book nBook = getBook(oId);
         if(uBook.getId() != null) nBook.setId(uBook.getId());
         if(uBook.getName() != null) nBook.setName(uBook.getName());
         if(uBook.getAuthor() != null) nBook.setAuthor(uBook.getAuthor());
