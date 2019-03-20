@@ -1,25 +1,30 @@
 package bookstore;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 public class Book implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    private int id;
+    @NotNull
+    private Integer id;
+    @NotNull
     private String author;
+    @NotNull
     private String name;
+    @NotNull
     private String genre;
 
     public Book(){}
 
-    public Book(int id, String author, String name, String genre){
+    public Book(Integer id, String author, String name, String genre){
         this.id = id;
         this.name = name;
         this.author = author;
         this.genre = genre;
     }
     
-    public int getId(){
+    public Integer getId(){
         return id;
     }
 
