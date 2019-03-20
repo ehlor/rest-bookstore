@@ -23,12 +23,15 @@ Gauti knygą pagal id ```/books/{id}```
 
 **POST**
 
-Patalpinti knygą ```/books?id=...&name=...&author=...&genre=...```
+Patalpinti knygą ```/books```
 
 **PUT**
 
-Redaguoti knygą ```/books?oid=SENAS_ID&id=...&name=...&author=...&genre=...```
+Redaguoti knygą ```/books/{id}```
 
 **DELETE**
 
 Ištrinti knygą ```/books/{id}```
+
+
+**Resurso atributai**: id, name, author, genre.
