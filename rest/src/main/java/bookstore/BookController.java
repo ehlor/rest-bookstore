@@ -50,6 +50,7 @@ public class BookController{
                                               @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
+        if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
 
