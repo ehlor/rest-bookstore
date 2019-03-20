@@ -70,6 +70,7 @@ public class BookAccess{
 
     public int addBook(Book nBook){
         List<Book> bookList = getAllBooks();
+        generateId(nBook);
         for(Book book : bookList){
             if(book.equals(nBook) || book.getId() == nBook.getId()) return 0;
         }
@@ -80,6 +81,7 @@ public class BookAccess{
 
     public int updateBook(int oId, Book uBook){
         List<Book> bookList = getAllBooks();
+        generateId(nBook);
         for(Book book : bookList){
             if(book.getId() == oId){
                 int index = bookList.indexOf(book);
@@ -102,4 +104,19 @@ public class BookAccess{
         }
         return 0;
     }
+        
+    public void generateId(Book book){
+        if(book.getId() == null){
+            int bookId = 1;
+            while(1){
+                if(getBook(bookId) == null){
+                    nBook.setId(bookId);
+                    break;
+                }
+                else bookId++;
+            }
+        }
+        return;
+    }
+
 }
