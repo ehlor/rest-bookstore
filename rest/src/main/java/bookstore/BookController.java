@@ -18,7 +18,9 @@ public class BookController{
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> getBooks(){
-        return new ResponseEntity<List<Book>>(bookAccess.getAllBooks(), HttpStatus.OK);
+        List<Book> bookList = bookAccess.getAllBooks();
+        if(bookList.isEmpty()) return new ResponseEntity<List<Book>>(bookList, HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<List<Book>>(bookList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
