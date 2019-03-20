@@ -81,7 +81,7 @@ public class BookAccess{
 
     public int updateBook(int oId, Book uBook){
         List<Book> bookList = getAllBooks();
-        generateId(nBook);
+        generateId(uBook);
         for(Book book : bookList){
             if(book.getId() == oId){
                 int index = bookList.indexOf(book);
@@ -110,7 +110,7 @@ public class BookAccess{
             int bookId = 1;
             while(1){
                 if(getBook(bookId) == null){
-                    nBook.setId(bookId);
+                    book.setId(bookId);
                     break;
                 }
                 else bookId++;
