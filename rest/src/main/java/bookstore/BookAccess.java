@@ -92,6 +92,27 @@ public class BookAccess{
         }
         return 0;
     }
+    
+    public int patchBook(int oId, Book uBook){
+        List<Book> bookList = getAllBooks();
+        Book nBook = new Book();
+        if(uBook.getId() != null) nBook.setId(uBook.getId());
+        if(uBook.getName() != null) nBook.setName(uBook.getName());
+        if(uBook.getAuthor() != null) nBook.setAuthor(uBook.getAuthor());
+        if(uBook.getGenre() != null) nBook.setGenre(uBook.getGenre());
+        for(Book book : bookList){
+            if(book.equals(nBook) || book.getId() == nBook.getId()) return 2;
+        }
+        for(Book book : bookList){
+            if(book.getId() == oId){
+                int index = bookList.indexOf(book);
+                bookList.set(index, nBook);
+                saveBookList(bookList);
+                return 1;
+            }
+        }
+        return 0;
+    }
 
     public int deleteBook(int id){
         List<Book> bookList = getAllBooks();
