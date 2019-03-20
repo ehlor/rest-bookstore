@@ -108,7 +108,7 @@ public class BookAccess{
     public void generateId(Book book){
         if(book.getId() == null){
             int bookId = 1;
-            while(1){
+            while(true){
                 if(getBook(bookId) == null){
                     book.setId(bookId);
                     break;
