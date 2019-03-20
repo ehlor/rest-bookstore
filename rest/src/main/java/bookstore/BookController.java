@@ -46,8 +46,8 @@ public class BookController{
     }
     
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<Response> updateBook(@PathVariable(value="id") int oid,
-                                               @RequestBody Book book){
+    public ResponseEntity<Response> patchBook(@PathVariable(value="id") int oid,
+                                              @RequestBody Book book){
         int response = bookAccess.updateBook(oid, book);
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), HttpStatus.OK);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
