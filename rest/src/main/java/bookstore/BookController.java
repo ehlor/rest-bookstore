@@ -61,7 +61,7 @@ public class BookController{
             else{
                 element = bookAccess.getBook(book.getId());
             }
-            HttpHeaders headers = headerBuilder(b, element.getId());
+            headers = headerBuilder(b, element.getId());
 
             if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
             if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
