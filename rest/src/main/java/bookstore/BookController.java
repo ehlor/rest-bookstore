@@ -52,19 +52,21 @@ public class BookController{
                                                @Valid @RequestBody Book book,
                                                UriComponentsBuilder b){
         int response = bookAccess.updateBook(oid, book);
-        // building header
         Book element;
-        if(book.getId() == null){
-            element = bookAccess.getBook(oid);
+        HttpHeaders headers;
+        if(bookAccess.getBook(oid) != null){
+            if(book.getId() == null){
+                element = bookAccess.getBook(oid);
+            }
+            else{
+                element = bookAccess.getBook(book.getId());
+            }
+            HttpHeaders headers = headerBuilder(b, element.getId());
+
+            if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
+            if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         }
-        else{
-            element = bookAccess.getBook(book.getId());
-        }
-        HttpHeaders headers = headerBuilder(b, element.getId());
-        
-        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
-        if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
     
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PATCH)
@@ -72,19 +74,21 @@ public class BookController{
                                               @RequestBody Book book,
                                               UriComponentsBuilder b){
         int response = bookAccess.patchBook(oid, book);
-        // building header
         Book element;
-        if(book.getId() == null){
-            element = bookAccess.getBook(oid);
-        }
-        else{
-            element = bookAccess.getBook(book.getId());
-        }
-        HttpHeaders headers = headerBuilder(b, element.getId());
+        HttpHeaders headers;
+        if(bookAccess.getBook(oid) != null){
+            if(book.getId() == null){
+                element = bookAccess.getBook(oid);
+            }
+            else{
+                element = bookAccess.getBook(book.getId());
+            }
+            headers = headerBuilder(b, element.getId());
         
-        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
-        if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
+            if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
+            if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
