@@ -51,10 +51,10 @@ public class BookController{
     public ResponseEntity<Response> updateBook(@PathVariable(value="id") int oid,
                                                @Valid @RequestBody Book book,
                                                UriComponentsBuilder b){
-        int response = bookAccess.updateBook(oid, book);
-        Book element;
-        HttpHeaders headers;
         if(bookAccess.getBook(oid) != null){
+            int response = bookAccess.updateBook(oid, book);
+            Book element;
+            HttpHeaders headers;
             if(book.getId() == null){
                 element = bookAccess.getBook(oid);
             }
@@ -73,10 +73,10 @@ public class BookController{
     public ResponseEntity<Response> patchBook(@PathVariable(value="id") int oid,
                                               @RequestBody Book book,
                                               UriComponentsBuilder b){
-        int response = bookAccess.patchBook(oid, book);
-        Book element;
-        HttpHeaders headers;
         if(bookAccess.getBook(oid) != null){
+            int response = bookAccess.patchBook(oid, book);
+            Book element;
+            HttpHeaders headers;
             if(book.getId() == null){
                 element = bookAccess.getBook(oid);
             }
