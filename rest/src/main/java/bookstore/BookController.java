@@ -43,7 +43,7 @@ public class BookController{
         Book element = list.get(list.size() - 1);
         HttpHeaders headers = headerBuilder(b, element.getId());
 
-        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book added"), headers, HttpStatus.OK);
+        if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book added"), headers, HttpStatus.CREATED);
         return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
     }
 
@@ -52,7 +52,16 @@ public class BookController{
                                                @Valid @RequestBody Book book,
                                                UriComponentsBuilder b){
         int response = bookAccess.updateBook(oid, book);
-        HttpHeaders headers = headerBuilder(b, book.getId());
+        // building header
+        List<Book> list = bookAccess.getAllBooks();
+        Book element;
+        if(book.getId() == null){
+            element = list.getBook(oid);
+        }
+        else{
+            element = list.getBook(book.getId());
+        }
+        
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
         if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
@@ -63,7 +72,17 @@ public class BookController{
                                               @RequestBody Book book,
                                               UriComponentsBuilder b){
         int response = bookAccess.patchBook(oid, book);
-        HttpHeaders headers = headerBuilder(b, book.getId());
+        // building header
+        List<Book> list = bookAccess.getAllBooks();
+        Book element;
+        if(book.getId() == null){
+            element = list.getBook(oid);
+        }
+        else{
+            element = list.getBook(book.getId());
+        }
+        HttpHeaders headers = headerBuilder(b, element.getId());
+        
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
         if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
