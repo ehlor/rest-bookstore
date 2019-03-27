@@ -70,8 +70,9 @@ public class BookAccess{
 
     public int addBook(Book nBook){
         List<Book> bookList = getAllBooks();
+        generateId(nBook);
         for(Book book : bookList){
-            if(book.equals(nBook) || book.getId() == nBook.getId()) return 0;
+            if(book.equals(nBook) || book.getId().equals(nBook.getId())) return 0;
         }
         bookList.add(nBook);
         saveBookList(bookList);
@@ -80,10 +81,59 @@ public class BookAccess{
 
     public int updateBook(int oId, Book uBook){
         List<Book> bookList = getAllBooks();
+        generateId(uBook);
+        if(uBook.equals(getBook(oId))){ // jeigu knygos info nepasikeite, iesko ar egzsituoja kita knyga su nauju id
+            for(Book book : bookList){
+                if(book.getId().equals(uBook.getId()) && (book.getId() != oId)) return 2;
+            }
+        }
+        else if(oId == uBook.getId()){ // jeigu knygos id nepasikeite, iesko ar egzistuoja kita knyga su nauju info
+            for(Book book : bookList){
+                if(book.equals(uBook)) return 2;
+            }
+        }
+        else{ // iesko ar egzsituoja kita knyga su nauju info ir id
+            for(Book book : bookList){
+                if(book.equals(uBook) || book.getId().equals(uBook.getId())) return 2;
+            }
+        }
         for(Book book : bookList){
             if(book.getId() == oId){
                 int index = bookList.indexOf(book);
                 bookList.set(index, uBook);
+                saveBookList(bookList);
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
+    public int patchBook(int oId, Book uBook){
+        List<Book> bookList = getAllBooks();
+        Book nBook = getBook(oId);
+        if(uBook.getId() != null) nBook.setId(uBook.getId());
+        if(uBook.getName() != null) nBook.setName(uBook.getName());
+        if(uBook.getAuthor() != null) nBook.setAuthor(uBook.getAuthor());
+        if(uBook.getGenre() != null) nBook.setGenre(uBook.getGenre());
+        if(nBook.equals(getBook(oId))){ // jeigu knygos info nepasikeite, iesko ar egzsituoja kita knyga su nauju id
+            for(Book book : bookList){
+                if(book.getId().equals(nBook.getId()) && (book.getId() != oId)) return 2;
+            }
+        }
+        else if(oId == nBook.getId()){ // jeigu knygos id nepasikeite, iesko ar egzistuoja kita knyga su nauju info
+            for(Book book : bookList){
+                if(book.equals(nBook)) return 2;
+            }
+        }
+        else{ // iesko ar egzsituoja kita knyga su nauju info ir id
+            for(Book book : bookList){
+                if(book.equals(nBook) || book.getId().equals(nBook.getId())) return 2;
+            }
+        }
+        for(Book book : bookList){
+            if(book.getId() == oId){
+                int index = bookList.indexOf(book);
+                bookList.set(index, nBook);
                 saveBookList(bookList);
                 return 1;
             }
@@ -102,4 +152,19 @@ public class BookAccess{
         }
         return 0;
     }
+        
+    public void generateId(Book book){
+        if(book.getId() == null){
+            int bookId = 1;
+            while(true){
+                if(getBook(bookId) == null){
+                    book.setId(bookId);
+                    break;
+                }
+                else bookId++;
+            }
+        }
+        return;
+    }
+
 }

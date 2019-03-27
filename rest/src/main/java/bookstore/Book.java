@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 public class Book implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    @NotNull
+
     private Integer id;
     @NotNull
     private String author;
@@ -56,12 +56,9 @@ public class Book implements Serializable{
         this.genre = genre;
     }
 
-    public boolean equals(Object object){
-        if(object == null){
-            return false;
-        }
+    public boolean equals(Book book){
+        if(book == null) return false;
         else{
-            Book book = (Book) object;
             if(author.equals(book.getAuthor()) && name.equals(book.getName()) && genre.equals(book.getGenre())) return true;
         }
         return false;
