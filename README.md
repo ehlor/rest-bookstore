@@ -29,6 +29,10 @@ Patalpinti knygą ```/books```
 
 Redaguoti knygą ```/books/{id}```
 
+**PATCH**
+
+Redaguoti knygos dalį ```/books/{id}```
+
 **DELETE**
 
 Ištrinti knygą ```/books/{id}```
