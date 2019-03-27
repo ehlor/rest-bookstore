@@ -3,11 +3,11 @@
 Web serviso paleidimas Docker aplinkoje:
 1. Klonuojam git repozitoriją
 ```
-git clone https://github.com/theelo/rest-bookstore.git web
+git clone https://github.com/theelo/rest-bookstore.git
 ```
 2. Kuriam image failą
 ```
-docker build -t bookstore web
+docker build -t bookstore .
 ```
 3. Paleidžiam konteinerį su web servisu
 ```
