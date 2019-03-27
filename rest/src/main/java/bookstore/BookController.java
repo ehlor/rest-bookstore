@@ -53,13 +53,12 @@ public class BookController{
                                                UriComponentsBuilder b){
         int response = bookAccess.updateBook(oid, book);
         // building header
-        List<Book> list = bookAccess.getAllBooks();
         Book element;
         if(book.getId() == null){
-            element = list.getBook(oid);
+            element = bookAccess.getBook(oid);
         }
         else{
-            element = list.getBook(book.getId());
+            element = bookAccess.getBook(book.getId());
         }
         
         if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
@@ -73,13 +72,12 @@ public class BookController{
                                               UriComponentsBuilder b){
         int response = bookAccess.patchBook(oid, book);
         // building header
-        List<Book> list = bookAccess.getAllBooks();
         Book element;
         if(book.getId() == null){
-            element = list.getBook(oid);
+            element = bookAccess.getBook(oid);
         }
         else{
-            element = list.getBook(book.getId());
+            element = bookAccess.getBook(book.getId());
         }
         HttpHeaders headers = headerBuilder(b, element.getId());
         
