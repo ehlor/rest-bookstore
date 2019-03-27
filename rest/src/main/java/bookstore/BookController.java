@@ -64,11 +64,9 @@ public class BookController{
             headers = headerBuilder(b, element.getId());
 
             if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
-            if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
+            else return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         }
-        else{
-            return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
-        }
+        else return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
     
     @RequestMapping(value = "/books/{id}", method = RequestMethod.PATCH)
@@ -88,11 +86,9 @@ public class BookController{
             headers = headerBuilder(b, element.getId());
         
             if(response == 1) return new ResponseEntity<Response>(new Response("success", "Book updated"), headers, HttpStatus.OK);
-            if(response == 2) return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
+            else return new ResponseEntity<Response>(new Response("failure", "Book already exists"), HttpStatus.BAD_REQUEST);
         }
-        else{
-            return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
-        }
+        else return new ResponseEntity<Response>(new Response("failure", "Could not find book"), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
